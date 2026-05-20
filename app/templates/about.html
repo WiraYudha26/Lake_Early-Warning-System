@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="Tentang SIGADANA - Sistem Informasi Gelombang dan Angin Danau Toba." />
+  <meta property="og:title" content="About SIGADANA" />
+  <meta property="og:description" content="Sistem prediksi bahaya pelayaran di Danau Toba" />
+  <meta name="theme-color" content="#0077b6" />
+  <title>Tentang SIGADANA</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+</head>
+
+<body class="about-page">
+  {% include 'components/navbar.html' %}
+
+  <main>
+    <section class="section-header" id="subtitle">
+      <div class="container">
+        <h2 class="section-title" style="text-align: center;">TENTANG KAMI</h2>
+        <div class="section-divider"></div>
+
+    <!-- Apa Itu SIGADANA -->
+    <section class="info-section" id="about-sigadana">
+      <div class="container">
+        <h2 class="section-subtitle">APA ITU SIGADANA?</h2>
+        <p style="--i: 1;">
+          Sistem Informasi Gelombang dan Angin Danau atau <strong>SIGADANA</strong> adalah sebuah sistem prediksi yang menyajikan informasi real-time mengenai potensi bahaya 
+          terkait aktivitas pelayaran di Danau Toba, meliputi <strong>gelombang tinggi akibat angin (<i>wind-generated waves</i>) dan angin kencang</strong>. 
+        </p>
+        <p style="--i: 2;">
+          Potensi bahaya yang terdeteksi kemudian diklasifikasikan berdasarkan <i>Gross Tonnage</i> 
+          pada kapal. Pemodelan dilakukan dengan pendekatan fisika berbasis data observasi cuaca dari wilayah pelabuhan terkait.
+        </p>
+      </div>
+    </section>
+
+    <!-- Tujuan -->
+    <section class="info-section" id="tujuan-sigadana">
+      <div class="container">
+        <h2 class="section-subtitle">TUJUAN SIGADANA</h2>
+        <p style="--i: 1;">
+          Sistem ini dirancang untuk membantu masyarakat, nelayan, wisatawan, serta pihak berwenang 
+          dalam mengantisipasi dan merespons kondisi perairan danau dengan lebih cepat dan tepat.       
+        </p>
+        <p style="--i: 2;">
+          Kendati sistem ini masih dalam tahap <strong>prototipe</strong> dan baru diuji coba di Danau Toba, 
+          pengembangan sistem akan terus dilakukan agar dapat diterapkan di wilayah perairan lainnya di Indonesia.
+        </p>
+      </div>
+    </section>
+
+    <!-- Fitur Utama -->
+    <section class="info-section alt" id="features">
+      <div class="container">
+        <h2 class="section-subtitle">FITUR UTAMA</h2>
+        <ul class="features-list">
+          <li style="--i: 1">Peringatan dini gelombang tinggi, arus kuat, dan angin kencang.</li>
+          <li style="--i: 2">Memantau 7 pelabuhan yang menjadi simpul penting pelayaran di Danau Toba.</li>
+          <li style="--i: 3">Akses informasi real-time melalui website interaktif.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  {% include 'components/footer.html' %}
+</body>
+</html>

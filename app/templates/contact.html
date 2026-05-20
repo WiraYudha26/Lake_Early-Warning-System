@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="Hubungi SIGADANA - Kontak Pengembang Sistem." />
+  <meta property="og:title" content="Hubungi SIGADANA" />
+  <meta property="og:description" content="Kontak tim pengembang SIGADANA untuk pertanyaan dan masukan." />
+  <title>Contact Us</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+</head>
+
+<body class="contact-page">
+  {% include 'components/navbar.html' %}
+
+  <main>
+    <section class="section-header" id="subtitle">
+      <div class="container">
+        <h2 class="section-title">HUBUNGI KAMI</h2>
+        <div class="section-divider"></div>
+
+        <!-- Intro dan Slogan -->
+        <div class="contact-block blue">
+          <div class="contact-intro-wrapper">
+            <p class="contact-intro">
+              Segala kritik dan masukan terkait sistem SIGADANA melalui pengisian formulir di bawah maupun kontak
+              pada instansi terkait akan kami tampung dan kami jadikan bahan pertimbangan untuk pengembangan sistem SIGADANA.
+            </p>
+            <div class="highlight-box">
+              <p class="contact-slogan">
+                Mari kita bersama-sama mewujudkan slogan BMKG: <strong>Handal dan Terpercaya</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Kontak -->
+        <div class="contact-block light">
+          <div class="contact-block-header">📋 Pengisian Form</div>
+          <form id="ajax-contact-form" class="contact-form" method="POST" action="/contact">
+            <div class="form-group">
+              <label for="name">👤 Nama Lengkap</label>
+              <input type="text" id="name" name="name" required placeholder="Masukkan nama Anda">
+            </div>
+            <div class="form-group">
+              <label for="email">✉️ Email Aktif</label>
+              <input type="email" id="email" name="email" required placeholder="contoh@email.com">
+            </div>
+            <div class="form-group">
+              <label for="subject">📝 Subjek</label>
+              <input type="text" id="subject" name="subject" required placeholder="Judul pesan Anda">
+            </div>
+            <div class="form-group">
+              <label for="message">💬 Pesan</label>
+              <textarea id="message" name="message" rows="5" required placeholder="Tulis pesan Anda di sini..."></textarea>
+            </div> 
+            <button type="submit" class="btn" aria-label="Kirim pesan ke SIGADANA">Kirim Pesan</button>
+            
+            <!-- ALERT -->
+            <div id="form-alert" class="alert" style="display: none;"></div>         
+          </form>
+        </div>
+
+        <!-- Info Kontak Langsung -->
+        <div class="contact-block blue">
+          <div class="contact-block-header" style="display: flex; align-items: center;">
+            <span class="emoji" style="font-size: 28px; margin-right: 8px;">📞</span>
+            <span style="font-weight: bold;">Kontak Instansi Terkait</span>
+          </div>
+          <div class="contact-cards" style="margin-left: 0;">
+            <div class="contact-box">
+              <h3><span class="emoji">🏢</span> BMKG Pusat</h3>
+              <p>Jl. Angkasa I No.2, Kemayoran, Jakarta Pusat 10720</p>
+              <p>
+                <img src="{{ url_for('static', filename='images/Gmail.png') }}" alt="Gmail" class="icon-mail">
+                <a href="mailto:info@bmkg.go.id">info@bmkg.go.id</a>
+              </p>
+              <p class="social-link">
+                <img src="{{ url_for('static', filename='images/Instagram.png') }}" alt="Instagram" class="icon-ig">
+                <a href="https://instagram.com/infoBMKG" target="_blank">@infoBMKG</a>
+              </p>
+            </div>
+
+            <div class="contact-box alt">
+              <h3><span class="emoji">🏢</span> BMKG Wilayah I Medan</h3>
+              <p>Jl. Ngumban Surbakti No.15, Medan Selayang, Kota Medan, Sumatera Utara</p>
+              <p>
+                <img src="{{ url_for('static', filename='images/Gmail.png') }}" alt="Gmail" class="icon-mail">
+                <a href="mailto:bbmkg1@bmkg.go.id">bbmkg1@bmkg.go.id</a>
+              </p>
+              <p class="social-link">
+                <img src="{{ url_for('static', filename='images/Instagram.png') }}" alt="Instagram" class="icon-ig">
+                <a href="https://instagram.com/infobmkgsumut" target="_blank">@infobmkgsumut</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  {% include 'components/footer.html' %}
+
+  <script>
+    const form = document.getElementById('ajax-contact-form');
+    const alertBox = document.getElementById('form-alert');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      fetch('/contact', {
+        method: 'POST',
+        body: formData,
+      })
+      .then(response => response.json())
+      .then(data => {
+        alertBox.style.display = 'block';
+        alertBox.className = 'alert alert-' + data.status;
+        alertBox.innerText = data.message;
+
+        setTimeout(() => {
+          alertBox.classList.add('fade-out');
+          setTimeout(() => {
+            alertBox.style.display = 'none';
+            alertBox.classList.remove('fade-out');
+          }, 400);
+        }, 5000);
+
+        if (data.status === 'success') {
+          form.reset();
+        }
+      })
+      .catch(error => {
+        alertBox.style.display = 'block';
+        alertBox.className = 'alert alert-danger';
+        alertBox.innerText = 'Terjadi kesalahan saat menghubungi server.';
+
+        setTimeout(() => {
+          alertBox.classList.add('fade-out');
+          setTimeout(() => {
+            alertBox.style.display = 'none';
+            alertBox.classList.remove('fade-out');
+          }, 400);
+        }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>

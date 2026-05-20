@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Himbauan - {{ pelabuhan }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/monitoring.css') }}">
+</head>
+<body>
+
+  {% include 'components/navbar.html' %}
+
+  <section style="padding:40px;">
+    <h1 class="monitoring-title">HIMBAUAN RUTE NAVIGASI</h1>
+    <div class="section-divider"></div>
+
+    <!-- INFO PELABUHAN -->
+    <div class="graph-monitoring-box">
+      <div class="monitoring-info">
+        <div class="info-item left"><strong>⚓ Pelabuhan {{ pelabuhan }}</strong></div>
+        <div class="info-item center"><strong>📅 {{ data.timestamp.strftime("%d-%m-%Y") }}</strong></div>
+        <div class="info-item right"><strong>⏰ {{ data.timestamp_wib.strftime("%H:%M") }} WIB</strong></div>
+      </div>
+    </div>
+
+    <!-- BOX REKOMENDASI -->
+    <div class="navigasi-container">
+      <div id="rekomendasi-box" style="margin-top:30px;"></div>
+
+      <!-- Daftar Rute -->
+      <div style="margin-top:20px;">
+        {% for rute in rute_list %}
+          <div class="rute-box 
+            {% if rute.status == 'Aman' %}aman
+            {% elif rute.status == 'Waspada' %}waspada
+            {% elif rute.status == 'Awas' %}awas
+            {% endif %}">
+
+            <h2 class="rute-title">🧭 Rute: {{ pelabuhan }} → {{ rute.tujuan }}</h2>
+
+            {% if rute.status == 'Aman' %}
+              <p style="margin: 24px 0 4px 0;"><strong>Status: Aman</strong></p>
+              <p style="margin: 0 0 16px 0;">Kondisi angin dan gelombang cukup tenang.</p>
+
+            {% elif rute.status == 'Waspada' %}
+              <p style="margin: 24px 0 4px 0;"><strong>Status: Waspada!</strong></p>
+              <p style="margin: 0 0 24px 0;">Perhatikan kondisi angin dan gelombang yang menuju arah <strong>{{ rute.arah_bahaya }}!</strong></p>
+              <p style="margin: 0 0 4px 0;"><strong>Rekomendasi: </strong></p>
+              {% if rute.arah_aman == "Tidak ada" %}
+                <p style="margin: 0 0 24px 0;">Mohon maaf. Belum ada arah yang aman untuk berlayar.</p>
+              {% else %}
+                <p style="margin: 0 0 24px 0;">Berlayarlah ke arah <strong>{{ rute.arah_aman }}</strong>.</p>
+              {% endif %}
+              <p style="font-size: 0.95em; margin: 16px 0 0 0;">ℹ️ Note: Kondisi ini berlaku sekurang-kurangnya dua jam ke depan!</em></p>
+
+            {% elif rute.status == 'Awas' %}
+              <p style="margin: 24px 0 4px 0;"><strong>Status: Awas!</strong></p>
+              <p style="margin: 0 0 8px 0;">Gelombang tinggi dan angin kencang terdeteksi ke arah <strong>{{ rute.arah_bahaya }}!</strong></p>
+              <p style="margin: 0 0 24px 0;">Mohon untuk tidak berlayar terlebih dahulu!</p>
+              <p style="font-size: 0.95em; margin: 16px 0 0 0;">ℹ️ Note: Kondisi ini berlaku sekurang-kurangnya dua jam ke depan!</em></p>
+            {% endif %}
+
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="chart-note">
+      <p>"Sebaik-baik perjalanan adalah yang sampai ke tujuannya dengan selamat."</p>
+    </div>
+  </section>
+</body>
+</html>

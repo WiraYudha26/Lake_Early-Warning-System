@@ -1,0 +1,11 @@
+<nav class="navbar" aria-label="Main Navigation">
+  <div class="navbar-logos">
+    <img src="{{ url_for('static', filename='images/STMKG.png') }}" class="logo-img-left" alt="Logo STMKG">
+    <img src="{{ url_for('static', filename='images/BMKG-LOGO.png') }}" class="logo-img-right" alt="Logo BMKG">
+  </div>
+  <ul class="navbar-menu">
+    <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
+    <li><a href="/about" class="{% if request.path == '/about' %}active{% endif %}">About</a></li>
+    <li><a href="/contact" class="{% if request.path == '/contact' %}active{% endif %}">Contact</a></li>
+  </ul>
+</nav>

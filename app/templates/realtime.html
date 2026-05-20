@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Monitoring Realtime - {{ pelabuhan }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/monitoring.css') }}">
+</head>
+
+<body class="monitoring-page">
+  {% include 'components/navbar.html' %}
+
+{% if warning %}
+  <section class="dashboard">
+    <h1 class="monitoring-title">MONITORING REAL-TIME</h1>
+    <div class="section-divider"></div>
+    <div class="graph-monitoring-box">
+      <div class="warning-box danger">
+        <h2><strong>⚠ Gagal Memuat Data</strong></h2>
+        <p>{{ warning }}</p>
+        <a href="{{ url_for('main.home') }}">← Kembali ke Beranda</a>
+      </div>
+    </div>
+  </section>
+{% else %}
+
+  <section class="dashboard">
+    <h1 class="monitoring-title">MONITORING REAL-TIME</h1>
+    <div class="section-divider"></div>
+
+    <!-- INFO PELABUHAN -->
+    <div class="graph-monitoring-box">
+      <div class="monitoring-info">
+        <div class="info-item left"><strong>⚓ Pelabuhan {{ pelabuhan }}</strong></div>
+        <div class="info-item center"><strong>📅 {{ data.timestamp.strftime("%d-%m-%Y") }}</strong></div>
+        <div class="info-item right"><strong>⏰ {{ data.timestamp.strftime("%H:%M") }} WIB</strong></div>
+      </div>
+    </div>
+
+    <!-- Warning Box -->
+    <div class="warning-box {{ warning_level|default('safe') }}">
+      <h2><strong>{{ peringatan_umum }}</strong></h2>
+      <p>Detail kondisi:</p>
+      <ul>
+        <li class="param {{ 'danger' if 'BERBAHAYA UNTUK SEMUA KAPAL!' in peringatan_angin else 'warning' if 'Gross Tonnage' in peringatan_angin else 'safe' }}">
+          <strong>Kecepatan Angin {{ peringatan_angin }}</strong>
+        </li>
+        <li class="param {{ 'danger' if 'BERBAHAYA UNTUK SEMUA KAPAL!' in peringatan_gelombang else 'warning' if 'Gross Tonnage' in peringatan_gelombang else 'safe' }}">
+          <strong>Tinggi Gelombang {{ peringatan_gelombang }}</strong>
+        </li>
+        <li class="param {{ 'danger' if 'BERBAHAYA UNTUK SEMUA KAPAL!' in peringatan_arus else 'warning' if 'Gross Tonnage' in peringatan_arus else 'safe' }}">
+          <strong>Arus Gelombang {{ peringatan_arus }}</strong>
+        </li>
+      </ul>
+    </div>
+
+    <!-- INFORMASI PERAIRAN -->
+    <div class="graph-monitoring-box">
+      <h2 class="monitoring-subtitle">⛵ Prediksi Kondisi Lokal dan Perairan</h2>
+    </div>
+    <div class="chart-box suhu-rh">
+      <h3>Kondisi Lokal pada {{ data.timestamp.strftime("%d-%m-%Y") }}</h3>
+      <div class="suhu-rh-cards">
+        <div class="card">
+          <div class="label">Suhu</div>
+          <div class="value">{{ suhu }}<span class="unit">°C</span></div>
+        </div>
+        <div class="card">
+          <div class="label">Kelembaban</div>
+          <div class="value">{{ kelembaban }}<span class="unit">%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kartu-kartu Prediksi -->
+    <div class="summary-cards">
+      {% for pred in prediksi %}
+      <div class="card" style="border: 1px solid #228B22; background-color: #f0faf4; color: #2e7d32;">
+        <h3 style="color: #2e7d32;">{{ pred.waktu }} WIB</h3>
+
+        <!-- Prediksi Gelombang Tinggi -->
+        <div style="border: 1px solid #388e3c; border-radius: 10px; background-color: #e0f7e9; padding: 8px; margin-top: 10px; font-family: 'Roboto', sans-serif;">
+          <h4>Tinggi Gelombang Signifikan</h4>
+          <div class="value" style="color: #2e7d32;"><strong>{{ pred.hs }} m</strong></div>
+        </div>
+
+        <!-- Prediksi Kecepatan Arus -->
+        <div style="border: 1px solid #388e3c; border-radius: 10px; background-color: #e0f7e9; padding: 8px; margin-top: 10px; font-family: 'Roboto', sans-serif;">
+          <h4>Kecepatan Arus Gelombang</h4>
+          <div class="value" style="color: #2e7d32;"><strong>{{ pred.wave_current }} m/s</strong></div>
+          <div class="direction" style="color: #2e7d32;">Arah {{ pred.current_direction_text }} ({{ pred.current_direction }}°)</div>
+        </div>
+
+        <!-- Prediksi Kecepatan dan Arah Angin -->
+        <div style="border: 1px solid #388e3c; border-radius: 10px; background-color: #e0f7e9; padding: 8px; margin-top: 10px; font-family: 'Roboto', sans-serif;">
+          <h4>Kecepatan Angin</h4>
+          <div class="value" style="color: #2e7d32;"><strong>{{ pred.wind_speed }} m/s</strong></div>
+          <div class="direction" style="color: #2e7d32;">Arah {{ pred.wind_dir_text }} ({{ pred.wind_dir }}°)</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+      <a id="btn-navigasi" 
+        href="{{ url_for('main.navigasi', pelabuhan=pelabuhan) }}" 
+        class="btn-navigasi">🧭 Himbauan Navigasi
+      </a>
+    </div>
+
+  </section>
+
+  {% include 'components/footer.html' %}
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const warningBox = document.querySelector(".warning-box");
+      const btnNavigasi = document.querySelector(".btn-navigasi");
+
+      if (
+        warningBox &&
+        warningBox.classList.contains("danger") &&
+        btnNavigasi
+      ) {
+        btnNavigasi.style.pointerEvents = "none";
+        btnNavigasi.style.backgroundColor = "#ccc";
+        btnNavigasi.style.color = "#666";
+      }
+    });
+  </script>
+
+{% endif %}
+</body>
+</html>

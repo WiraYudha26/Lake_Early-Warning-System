@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Monitoring - {{ pelabuhan }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/monitoring.css') }}">
+</head>
+<body class="monitoring-page">
+
+  {% include 'components/navbar.html' %}
+
+  <section class="dashboard">
+
+    <!-- JUDUL DAN PEMBATAS -->
+    <h1 class="monitoring-title">MONITORING DATA HISTORIS</h1>
+    <div class="section-divider"></div>
+
+    <!-- INFO PELABUHAN -->
+    <div class="graph-monitoring-box">
+      <div class="monitoring-info">
+        <div class="info-item left"><strong>⚓ Pelabuhan {{ pelabuhan }}</strong></div>
+        <div class="info-item center"><strong>📅 {{ data.timestamp_wib.strftime("%d-%m-%Y") }}</strong></div>
+        <div class="info-item right"><strong>⏰ {{ data.timestamp_wib.strftime("%H:%M") }} WIB</strong></div>
+      </div>
+    </div>
+
+    <!-- WARNING BOX -->
+    <div class="warning-box {{ warning_level|default('safe') }}">
+      <h2><strong>{{ peringatan_umum }}</strong></h2>
+      <p>Detail kondisi:</p>
+      <ul>
+        <li class="param {{ 'danger' if 'BERBAHAYA UNTUK SEMUA KAPAL!' in peringatan_angin else 'warning' if 'Gross Tonnage' in peringatan_angin else 'safe' }}">
+          <strong>Kecepatan Angin {{ peringatan_angin }}</strong>
+        </li>
+        <li class="param {{ 'danger' if 'BERBAHAYA UNTUK SEMUA KAPAL!' in peringatan_gelombang else 'warning' if 'Gross Tonnage' in peringatan_gelombang else 'safe' }}">
+          <strong>Tinggi Gelombang {{ peringatan_gelombang }}</strong>
+        </li>
+        <li class="param {{ 'danger' if 'BERBAHAYA UNTUK SEMUA KAPAL!' in peringatan_arus else 'warning' if 'Gross Tonnage' in peringatan_arus else 'safe' }}">
+          <strong>Arus Gelombang {{ peringatan_arus }}</strong>
+        </li>
+        <li>
+          Angin dominan hari ini datang dari arah <strong>{{ arah_dominan_label }}</strong>
+        </li>
+      </ul>
+    </div>
+
+    <!-- INFORMASI PERAIRAN -->
+    <div class="graph-monitoring-box">
+      <h2 class="monitoring-subtitle">⛵ Informasi Kondisi Lokal dan Perairan</h2>
+    </div>
+    <div class="chart-box suhu-rh">
+      <h3>Kondisi Lokal pada {{ data.timestamp_wib.strftime("%d-%m-%Y") }}</h3>
+      <div class="suhu-rh-cards">
+        <div class="card">
+          <div class="label">Suhu</div>
+          <div class="value">{{ suhu }}<span class="unit">°C</span></div>
+        </div>
+        <div class="card">
+          <div class="label">Kelembaban</div>
+          <div class="value">{{ kelembaban }}<span class="unit">%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="summary-cards">
+      <div class="card">
+        <h3>Tinggi Gelombang Signifikan</h3>
+        <div class="value">{{ data.Hs_m }} m</div>
+      </div>
+      <div class="card">
+        <h3>Kecepatan Arus Gelombang</h3>
+        <div class="value">{{ data.Wave_Current }} m/s</div>
+        <div class="direction">Arah {{ data.current_direction_text }} ({{ data.current_direction }}°)</div>      
+      </div>
+      <div class="card">
+        <h3>Kecepatan Angin</h3>
+        <div class="value">{{ data.wind_speed_10m }} m/s</div>
+        <div class="direction">Arah {{ data.wind_dir_text }} ({{ data.wind_direction_10m }}°)</div>
+      </div>
+    </div>
+
+    <!-- GRAFIK -->
+    <div class="graph-monitoring-box">
+      <h2 class="monitoring-subtitle">📊 Grafik Bulanan</h2>
+    </div>
+
+    <div class="charts">
+      <div class="chart-column">
+        {% if grafik_timeseries %}
+        <div class="chart-box" onclick="openModal('modal1')">
+          <h4>Tinggi Gelombang Signifikan - {{ bulan_label }}</h4>
+          <img src="data:image/png;base64,{{ grafik_timeseries }}" alt="Grafik Tinggi Gelombang">
+        </div>
+        {% endif %}
+        {% if grafik_wavecurrent %}
+        <div class="chart-box" onclick="openModal('modal2')">
+          <h4>Kecepatan Arus Gelombang - {{ bulan_label }}</h4>
+          <img src="data:image/png;base64,{{ grafik_wavecurrent }}" alt="Grafik Kecepatan Arus">
+        </div>
+        {% endif %}
+      </div>
+      <div class="chart-column">
+        {% if grafik_windrose %}
+        <div class="chart-box" onclick="openModal('modal3')">
+          <h4>Windrose - {{ bulan_label }}</h4>
+          <img src="data:image/png;base64,{{ grafik_windrose }}" alt="Grafik Windrose">
+        </div>
+        {% endif %}
+        <div class="chart-box" style="background-color: #9edfffff;">
+          <h4>Sumber Data ⛅</h4>
+          <p>Data ini diambil dari situs <strong>Open-Meteo</strong>
+            <br>dan diolah menggunakan <strong>Jupyter Notebook</strong><br>
+            <br>Kunjungi: <a href="https://open-meteo.com/" target="_blank">https://open-meteo.com/</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+      <a id="btn-navigasi" 
+        href="{{ url_for('main.navigasi_v2', pelabuhan=pelabuhan, datetime=data.timestamp_wib.strftime('%Y-%m-%dT%H:%M')) }}" 
+        class="btn-navigasi">🧭 Himbauan Navigasi
+      </a>
+    </div>
+
+  </section>
+
+  {% include 'components/footer.html' %}
+
+  <!-- MODALS -->
+  <div id="modal1" class="modal">
+    <span class="close-button">&times;</span>
+    <div class="modal-content">
+      {% if grafik_timeseries %}
+      <img src="data:image/png;base64,{{ grafik_timeseries }}" alt="Grafik Tinggi Gelombang">
+      {% endif %}
+    </div>
+  </div>
+  <div id="modal2" class="modal">
+    <span class="close-button">&times;</span>
+    <div class="modal-content">
+      {% if grafik_wavecurrent %}
+      <img src="data:image/png;base64,{{ grafik_wavecurrent }}" alt="Grafik Kecepatan Arus">
+      {% endif %}
+    </div>
+  </div>
+  <div id="modal3" class="modal">
+    <span class="close-button">&times;</span>
+    <div class="modal-content">
+      {% if grafik_windrose %}
+      <img src="data:image/png;base64,{{ grafik_windrose }}" alt="Grafik Windrose">
+      {% endif %}
+    </div>
+  </div>
+  
+  <!-- JAVASCRIPT FOR MODAL -->
+  <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const warningBox = document.querySelector(".warning-box");
+      const btnNavigasi = document.querySelector(".btn-navigasi");
+
+      if (
+        warningBox &&
+        warningBox.classList.contains("danger") &&
+        btnNavigasi
+      ) {
+        btnNavigasi.style.pointerEvents = "none";
+        btnNavigasi.style.backgroundColor = "#ccc";
+        btnNavigasi.style.color = "#666";
+        btnNavigasi.title = "Tombol dinonaktifkan karena kondisi sangat berbahaya!";
+      }
+    });
+  </script>
+</body>
+</html>

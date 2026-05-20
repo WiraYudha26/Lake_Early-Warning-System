@@ -1,0 +1,10 @@
+Flask
+python-dotenv
+pandas
+numpy
+scipy
+geopy
+matplotlib
+windrose
+requests
+pytz

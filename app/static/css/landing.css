@@ -1,0 +1,649 @@
+/* ======================= */
+/*   Styling for Landing   */
+/* ======================= */
+.main-content {
+  opacity: 0;
+  visibility: hidden;
+  padding: 0;
+  animation: none;
+}
+
+.main-content.active {
+  animation: fadeInUp 1s ease-out forwards;
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* ======================= */
+/*        Intro Hero       */
+/* ======================= */
+.intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  position: relative;
+  padding: 0 20px;
+  margin-top: -30px;
+  animation: fadeInUp 1.5s ease-out forwards;
+}
+
+.heading-box {
+  background: rgba(0, 26, 51, 1);
+  padding: 60px 40px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
+  display: inline-block;
+  max-width: 90%;
+  text-align: center;
+  margin: 0 auto;
+  backdrop-filter: blur(4px);
+}
+
+.intro h1 {
+  font-size: 90px;
+  font-weight: 900;
+  letter-spacing: 12px;
+  margin-top: -20px;
+  margin-bottom: 0;
+  color: #f0f0f0;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  font-family: 'Montserrat', sans-serif;
+}
+
+.intro h3 {
+  font-size: 24px;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-style: italic;
+  color: #f0f0f0;
+  letter-spacing: 2px;
+}
+
+.intro-subheading {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 60px auto 12px;
+  color: #f0f0f0;
+  letter-spacing: 3px;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  max-width: fit-content;
+  padding: 20px 30px;
+  background-color: #1E3A8A;
+  border-radius: 16px;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.info-box {
+  background-color: rgba(240, 248, 255, 0.75);
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  margin: 10px auto 40px;
+  text-align: center;
+  max-width: 480px;
+  border: 1.5px solid rgba(255, 221, 51, 0.3);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.info-box:hover {
+  box-shadow: 0 4px 12px rgba(255, 221, 51, 0.3);
+  border-color: #ffdd33;
+  background-color: rgba(255, 249, 200, 0.7);
+}
+
+.info-box p {
+  margin: 0;
+  color: #002b4f;
+  font-family: 'Inter', 'Poppins', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.scroll-down {
+  margin-top: 20px;
+  display: inline-block;
+  font-size: 18px;
+  color: #ffffff;
+  text-decoration: none;
+  animation: bounce 2s infinite;
+}
+
+/* ======================= */
+/*      Animations         */
+/* ======================= */
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes expandFade {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ======================= */
+/*         Header          */
+/* ======================= */
+.section-header {
+  background: none;
+  padding: 48px 0 16px;
+  margin: 0 auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+/* Judul section */
+.section-title {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #003b73;
+  text-align: center;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: popFade 0.7s ease-out both;
+}
+
+.section-header .section-title {
+  font-size: 2.2em;
+  color: #003b73;
+}
+
+.section-header .section-divider {
+  margin: 12px auto 28px;
+}
+
+/* ======================= */
+/*      About Section      */
+/* ======================= */
+body.about-page {
+  background: linear-gradient(to bottom, #d6ecff, #96caff);
+}
+
+/* Struktur dasar setiap kartu */
+.info-section {
+  background: #f0f8ff;
+  padding: 48px 32px;
+  margin: 48px auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 80, 160, 0.08);
+  max-width: 880px;
+  animation: slideFadeUp 0.9s ease forwards;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-section:hover {
+  box-shadow: 0 12px 32px rgba(0, 80, 160, 0.12);
+  transform: translateY(-4px);
+}
+
+/* Warna lembut berbeda tiap kartu */
+#about-sigadana,
+#tujuan-sigadana,
+#features
+ {
+  background: #edf6fb;
+}
+
+/* Sub Judul */
+.section-subtitle {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #003b73;
+  background-color: #d0e6f6;
+  border-left: 4px solid #0077b6;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  line-height: 1.85;
+  padding: 8px 16px;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: popFade 0.7s ease-out both;
+}
+
+
+/* Divider */
+.section-divider {
+  height: 4px;
+  width: 80px;
+  background: #0077b6;
+  margin: 12px auto 28px auto;
+  border-radius: 2px;
+  opacity: 0.8;
+  animation: expandFade 1s ease-in-out;
+}
+
+/* Container isi teks */
+.container {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  font-size: 1.05em;
+  line-height: 1.85;
+  color: #003050;
+  padding: 0;
+}
+
+/* Paragraf dalam kartu */
+.info-section p {
+  color: #002b4f;
+  margin-bottom: 18px;
+  text-align: justify;
+  opacity: 0;
+  animation: slideFadeUp 0.8s ease forwards;
+  animation-delay: calc(var(--i, 1) * 0.1s);
+}
+
+/* Daftar fitur */
+.features-list {
+  list-style: none;
+  padding: 24px;
+  margin-top: 24px;
+  background: #f5faff;
+  border-radius: 12px;
+  box-shadow: inset 0 0 6px rgba(0, 64, 128, 0.05);
+  border: 1.5px solid #3399ff;
+}
+
+/* Item list fitur */
+.features-list li {
+  position: relative;
+  padding-left: 2.2em;
+  margin-bottom: 18px;
+  text-align: justify;
+  color: #002b4f;
+  font-size: 1.05em;
+  line-height: 1.85;
+  opacity: 0;
+  animation: slideFadeUp 0.8s ease forwards;
+  animation-delay: calc(var(--i, 1) * 0.1s);
+}
+
+.features-list li::before {
+  position: absolute;
+  left: 0;
+  transform: translateY(-4px);
+  font-size: 1.2em;
+}
+
+.features-list li:nth-child(1)::before {
+  content: "🌊";
+  color: #0077b6;
+}
+
+.features-list li:nth-child(2)::before {
+  content: "🛥️";
+  color: #00b4d8;
+}
+
+.features-list li:nth-child(3)::before {
+  content: "💻";
+  color: #0096c7;
+}
+
+.features-list li:hover::before {
+  transform: scale(1.25) translateY(-4px);
+  transition: transform 0.25s ease-in-out;
+}
+
+/* Offset scroll */
+section[id] {
+  scroll-margin-top: 90px;
+}
+
+/* Animasi */
+@keyframes slideFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes expandFade {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+
+  to {
+    width: 80px;
+    opacity: 0.8;
+  }
+}
+
+@keyframes popFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ======================= */
+/*      Contact Section    */
+/* ======================= */
+body.contact-page {
+  background: linear-gradient(to bottom, #e6f7ff, #99ddff);
+}
+
+.contact-intro-wrapper {
+  max-width: 800px;
+  margin: 0 auto 48px;
+  padding: 0 12px;
+}
+
+.contact-intro {
+  font-size: 1.1em;
+  text-align: justify;
+  color: #00324d;
+  margin-bottom: 16px;
+  line-height: 1.85;
+  padding: 0;
+}
+
+.contact-slogan {
+  font-style: italic;
+  color: #004060;
+  text-align: left;
+  margin: 0;
+}
+
+/* Form */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 12px;
+  gap: 24px;
+  margin-bottom: 56px;
+  max-width: 100%;
+  margin-left: 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  resize: none;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #005b8d;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 14px 18px;
+  border: 1.8px solid #0077b6;
+  border-radius: 10px;
+  font-size: 1em;
+  font-family: inherit;
+  background-color: #f8fcff;
+  color: #002b45;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #005a8d;
+  box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.2);
+}
+
+/* Button */
+.contact-form .btn {
+  align-self: flex-start;
+  background: linear-gradient(to right, #0077b6, #0096c7);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1em;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.contact-form .btn:hover {
+  background: linear-gradient(to right, #005a8d, #007aa6);
+}
+
+/* Contact Cards */
+.contact-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.contact-box {
+  background-color: #ffffff;
+  border-left: 5px solid #0077b6;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 64, 128, 0.05);
+  transition: transform 0.2s ease;
+  max-width: 100%;
+}
+
+.contact-box.alt {
+  border-left-color: #0096c7;
+}
+
+.contact-box:hover {
+  transform: translateY(-3px);
+}
+
+.contact-box h3 {
+  margin-top: 0;
+  color: #003b73;
+  font-size: 1.2em;
+  margin-bottom: 12px;
+}
+
+.contact-box p {
+  margin: 6px 0;
+  font-size: 1em;
+  color: #003050;
+}
+
+.contact-box a {
+  color: #0077b6;
+  text-decoration: none;
+}
+
+.contact-box a:hover {
+  text-decoration: underline;
+}
+
+/* Icon */
+.icon-ig,
+.icon-mail {
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+#form-alert {
+  display: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  max-width: 700px;
+  margin: 24px auto 0;
+  text-align: center;
+  transition: opacity 0.4s ease;
+}
+
+#form-alert.alert-success {
+  background-color: #d1f7e1;
+  color: #036b38;
+  border: 1px solid #5ac67d;
+}
+
+#form-alert.alert-danger {
+  background-color: #fce3e3;
+  color: #9d1f1f;
+  border: 1px solid #e47070;
+}
+
+#form-alert.fade-out {
+  opacity: 0;
+  transition: opacity 0.4s ease 0s;
+}
+
+/* Setting untuk papan penting */
+.highlight-box {
+  background-color: #a3d9f9;
+  border-left: 6px solid #0077b6;
+  padding: 20px;
+  margin: 24px 0;
+  font-size: 16px;
+  font-style: italic;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 119, 182, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: justify;
+}
+
+.highlight-box p {
+  margin: 0;
+}
+
+.contact-box h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-box h3 .emoji {
+  display: inline-block;
+  position: relative;
+  top: 1px;
+  left: -3px;
+}
+
+/* === Contact Block Container === */
+.contact-block {
+  max-width: 960px;
+  margin: 48px auto 40px auto;
+  padding: 32px 16px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 80, 160, 0.08);
+  animation: slideFadeUp 0.9s ease forwards;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: justify;
+}
+
+.contact-block.blue {
+  background-color: #eaf6ff;
+  text-align: justify;
+}
+
+.contact-block.light {
+  background-color: #f8fcff;
+  text-align: justify;
+}
+
+.contact-block-header {
+  display: block;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #004060;
+  margin-bottom: 32px;
+  padding-bottom: 4px;
+  position: relative;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.contact-block-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #004060;
+  border-radius: 2px;
+}
+
+.contact-block p,
+.contact-block label,
+.contact-block input,
+.contact-block textarea,
+.contact-box p {
+  text-align: justify;
+}

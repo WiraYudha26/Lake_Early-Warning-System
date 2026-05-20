@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="Lake Early Warning System for Toba Lake region." />
+  <meta property="og:title" content="Lake Wind and Wave Information System" />
+  <meta property="og:description" content="A real-time early warning system for Toba Lake region." />
+  <meta property="og:image" content="{{ url_for('static', filename='images/DanauToba1.webp') }}" />
+  <title>Homepage</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <!-- JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="{{ url_for('static', filename='js/map.js') }}" defer></script>
+</head>
+
+<body>
+  {% include 'components/navbar.html' %}
+
+  <!-- Gambar Latar -->
+  <div class="bg-image" style="background-image: url('{{ url_for('static', filename='images/DanauToba1.webp') }}');"></div>
+
+  <!-- Loader -->
+  <div class="loader-wrapper" id="loader">
+    <div class="loader-content">
+      <div class="loader"></div>
+      <p class="loader-text">Preparing your experience...</p>
+    </div>
+  </div>
+
+  <!-- Konten Utama -->
+  <main class="main-content">
+    <!-- Intro -->
+    <section class="intro" id="landing">
+      <div class="heading-box">
+        <h1>SIGADANA</h1>
+        <h3>(Sistem Informasi Gelombang dan Angin Danau)</h3>
+      </div>
+      <a href="#map-section" class="scroll-down">Scroll ↓</a>
+    </section>
+
+    <!-- Peta dan Panel -->
+    <section id="map-section">
+      <h2 id="subheading" class="intro-subheading">PROTOTYPE FOR TOBA LAKE REGION</h2>
+      <div class="info-box">
+        <p><strong>⚠️
+          <br>Harap mengisi Data Monitoring 'Pilih Tanggal' dalam rentang tahun 2020 - 2024 dan pada jam tepat (HH:00)</br>
+          <br>- SIGADANA Developer -</br></strong>
+        </p>
+      </div>
+
+      <div class="map-layout">
+        <!-- Peta -->
+        <div id="map"></div>
+
+        <!-- Panel Lokasi dan Monitoring -->
+        <div class="location-panel">
+          <label for="locations">Pilih Pelabuhan:</label>
+          <select id="locations" onchange="moveToLocation()">
+            <option value="" disabled selected hidden>---</option>
+            <option value="2.65917,98.93444,Ajibata">Ajibata</option>
+            <option value="2.68167,98.83194,Ambarita">Ambarita</option>
+            <option value="2.33722,99.06278,Balige">Balige</option>
+            <option value="2.33583,98.90694,Muara">Muara</option>
+            <option value="2.75361,98.74528,Simanindo">Simanindo</option>
+            <option value="2.43472,98.89806,Sipinggan">Sipinggan</option>
+            <option value="2.79778,98.78889,Tigaras">Tigaras</option>
+          </select>
+
+          <div class="monitoring-options" id="monitoring-options" style="display: none;">
+            <button onclick="redirectToRealtime(selectedPort)">🌐 Prediksi Real-Time</button>
+
+            <div class="date-selector">
+              <input type="datetime-local"
+                     id="datetime-input"
+                     required
+                     step="3600"
+                     min="2020-01-01T00"
+                     max="2024-12-31T23">
+              <button onclick="redirectToDate(selectedPort)">🗓️ Pilih Tanggal</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  {% include 'components/footer.html' %}
+
+  <!-- Loader Logic -->
+  <script>
+    window.addEventListener("load", function () {
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+        const main = document.querySelector(".main-content");
+        main.classList.add("active");
+        main.style.display = "block";
+        
+        // Add animation
+        void main.offsetWidth;
+        main.classList.add("fade-in");
+
+        // Fix map sizing
+        setTimeout(() => {
+          if (window.map) {
+            window.map.invalidateSize();
+          }
+        }, 500);
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
