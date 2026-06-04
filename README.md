@@ -69,13 +69,3 @@ Lalu edit `.env` dan isi dengan nilai yang sesuai:
 python run.py
 ```
 Buka browser di `http://localhost:5000`
-
-## 📁 Struktur Data
-
-Letakkan file CSV historis per pelabuhan di folder `data/output_gelombang/` dengan format nama:
-```
-{NamaPelabuhan}_gelombang.csv
-```
-Contoh: `Ajibata_gelombang.csv`, `Balige_gelombang.csv`, dst.
-
-> Data historis tidak disertakan di repository karena ukurannya besar.
