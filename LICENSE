@@ -1,21 +1,17 @@
-MIT License
+SISTEM INFORMASI GELOMBANG DAN ANGIN DANAU (SIGADANA)
+Copyright (c) 2026 I Putu Putra Wira Sarwa Yudha. All Rights Reserved.
 
-Copyright (c) 2026 Wira Sarwa Yudha
+---
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Lisensi & Ketentuan Kolaborasi Terbuka
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. Penggunaan Non-Komersial & Riset
+Kode sumber dalam repositori ini terbuka dan bebas digunakan, dipelajari, serta dimodifikasi oleh mahasiswa, akademisi, dan komunitas pengembang secara gratis khusus untuk keperluan riset, edukasi, dan pengujian non-komersial.
+2. Kolaborasi & Pengembangan (Open Collaboration)
+Siapa pun diperbolehkan untuk berpartisipasi dalam mengembangkan, menyempurnakan fitur (seperti sistem autentikasi, integrasi hosting, atau optimasi basis data), serta mengimplementasikan prototipe ini di wilayah perairan darat lainnya di Indonesia.
+3. Ketentuan Komersial & Bagi Hasil (Mutlak)
+Apabila sistem ini atau hasil modifikasinya akan digunakan secara komersial, diadopsi oleh instansi pemerintah (seperti Dinas Perhubungan/BPTD), Badan Usaha (seperti PT ASDP), maupun korporasi swasta berbayar, maka mitra pengembang wajib mengikat perjanjian legal formal (MoU) bersama Pencipta Asli (I Putu Putra Wira Sarwa Yudha) dengan skema bagi hasil pendapatan (revenue sharing) atas pemanfaatan Kekayaan Intelektual tersebut.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+---
+
+Penggunaan kode ini untuk tujuan komersial tanpa ikatan kerja sama resmi merupakan pelanggaran Hak Cipta yang dilindungi di bawah hukum Republik Indonesia.
